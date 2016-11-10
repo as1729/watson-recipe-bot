@@ -21,7 +21,7 @@ if __name__ == "__main__":
     username=os.environ.get("CONVERSATION_USERNAME"),
     password=os.environ.get("CONVERSATION_PASSWORD"),
     version='2016-07-11')
-
+  print conversation_client
   recipe_client = RecipeClient(os.environ.get("SPOONACULAR_KEY"))
 
   souschef = SousChef(bot_id, 

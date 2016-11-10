@@ -14,19 +14,21 @@ class SousChef:
     self.conversation_client = conversation_client
     self.recipe_client = recipe_client
     
-    self.at_bot = "<@" + bot_id + ">:"
+    self.at_bot = "<@" + bot_id + ">"
     self.delay = 0.5 #second
-    self.workspace_id = '93054028-2b0b-4b21-9bc1-ec8c48970dbb'
+    self.workspace_id = '4e06b9b1-e62e-49a2-9b0e-06f39c9170b7'
 
     self.context = {}
   
   def parse_slack_output(self, slack_rtm_output):
     output_list = slack_rtm_output
     if output_list and len(output_list) > 0:
+      print 'the lenght is good'
       for output in output_list:
         if output and 'text' in output and \
           'user_profile' not in output and \
           self.at_bot in output['text']:
+          print 'this statement is all set'
           return output['text'].split(self.at_bot)[1].strip().lower(), \
                  output['channel']
     return None, None
@@ -140,8 +142,10 @@ class SousChef:
       print("sous-chef is connected and running!")
       while True:
         slack_output = self.slack_client.rtm_read()
+        #slack output parsing is not being done correctly.
         message, channel = self.parse_slack_output(slack_output)
         if message and channel:
+          print 'about to handle message'
           self.handle_message(message, channel)
         time.sleep(self.delay)
     else:
